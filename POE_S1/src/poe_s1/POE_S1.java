@@ -17,47 +17,71 @@ public class POE_S1 {
      */
     public static boolean CheckUserName(String sUsername) {
         // Check if username is more than 5 characters long and contains an underscore
-        if (sUsername.length() >= 5 && sUsername.contains("_")) {
+        if (sUsername.contains("_") && sUsername.length() >= 5) {
             return true;
         } else {
             return false;
-        }
+        }//if
     }
 
     public static boolean CheckPasswordComplexity(String sPassword) {
-        // Check if password is at least 8 characters long
-        boolean lengthCheck = sPassword.length() >= 8;
+        // Check if password is at least 8 char long
+        boolean LengthCheck = sPassword.length() >= 8;
         
         // Check if password contains a capital letter
-        boolean capitalCheck = false;
+        boolean CapitalCheck = false;
+        // Check if password contains a number
+        boolean NumberCheck = false;
+        // Check if password contains a special character
+        boolean SpecialCharacterCheck = false;
+    
+        //Revised if statement
         for (char c : sPassword.toCharArray()) {
             if (Character.isUpperCase(c)) {
-                capitalCheck = true;
-                break;
-            }
+                CapitalCheck = true;
+            } else if (Character.isDigit(c)) {
+                NumberCheck = true;
+            } else if (!Character.isLetterOrDigit(c)) {
+                SpecialCharacterCheck = true;
+            }//if
         }
+            return LengthCheck && CapitalCheck && NumberCheck && SpecialCharacterCheck;
+
+    
         
-        // Check if password contains a number
-        boolean numberCheck = false;
-        for (char c : sPassword.toCharArray()) {
-            if (Character.isDigit(c)) {
-                numberCheck = true;
-                break;
-            }
-        }
-        
-        // Check if password contains a special character
-        boolean specialCheck = false;
-        for (char c : sPassword.toCharArray()) {
-            if (!Character.isLetterOrDigit(c)) {
-                specialCheck = true;
-                break;
-            }
-        }
-        
-        // Return true only if all checks are passed
-        return lengthCheck && capitalCheck && numberCheck && specialCheck;
-    }
+    /**    // Check if password contains a capital letter in any index
+    *    boolean CapitalCheck = false;
+    *    for (char c : sPassword.toCharArray()) {
+    *        if (Character.isUpperCase(c)) {
+    *            CapitalCheck = true;
+    *        } else {
+    *            CapitalCheck = false;    
+    *        }//if
+    *    }
+    *    
+    *    // Check if password contains a number 0-9
+    *    boolean NumberCheck = false;
+    *    for (char c : sPassword.toCharArray()) {
+    *        if (Character.isDigit(c)) {
+    *            NumberCheck = true;
+    *        } else {
+    *            NumberCheck = false;
+    *        }//if
+    *    }
+    *    
+    *    // Check if password contains a special character
+    *    boolean SpecialCharacterCheck = false;
+    *    for (char c : sPassword.toCharArray()) {
+    *        if (!Character.isLetterOrDigit(c)) {
+    *            SpecialCharacterCheck = true;
+    *        } else {
+    *            SpecialCharacterCheck = false;
+    *        }//if
+    *    }
+    *    
+    *    //Return true only if all checks are passed
+    */
+    }       
 
     public static void main(String[] args) {
         // Create a Scanner that will read username and password into a group of variables
@@ -78,8 +102,7 @@ public class POE_S1 {
             System.out.println("Username is not correctly formatted,"
                     + " please ensure that your username contains an underscore "
                     + "and is no more than 5 characters in length.");
-        }
-        
+        }//if
         
         System.out.print("Enter password: ");
         String sPassword = scanner.nextLine();
@@ -93,9 +116,8 @@ public class POE_S1 {
             System.out.println("Password is not correctly formatted,"
                     + " please ensure that the password contains at least 8 characters,"
                     + " a capital letter, a number and a special character.");
-        }
+        }//if
     
-        
         System.out.print("Enter name: ");
         String sName = scanner.nextLine();
         
@@ -103,6 +125,13 @@ public class POE_S1 {
         String sSurname = scanner.nextLine();
 
         // Close
-        scanner.close();
+        //scanner.close();
+        
+        
+        //LOGIN CLASS
+        Login login = new Login();
+        
+        // Call the login process
+        login.loginProcess();
     }
 }
