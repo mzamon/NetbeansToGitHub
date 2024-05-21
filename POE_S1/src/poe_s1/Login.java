@@ -65,6 +65,11 @@ public class Login { private String sUsername; private String sPassword;
         // Display login status
         if (loginStatus) {
             System.out.println("LOGIN SUCCESS");
+            
+            //PART2! Call Task class upon successfun login
+            //S
+            task_class Task = new task_class();
+            Task.Welcome();
         } else {
             System.out.println("LOGIN FAILED");
         }

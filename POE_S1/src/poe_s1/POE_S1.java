@@ -123,6 +123,11 @@ public class POE_S1 {
         
         System.out.print("Enter surname: ");
         String sSurname = scanner.nextLine();
+        
+        System.out.println("Name: " + sName +  "\n"
+                            + "Surname: " + sSurname + "\n"
+                            + "Username: " + sUsername + "\n"
+                            + "Password: " + sPassword + "\n");
 
         // Close
         //scanner.close();
