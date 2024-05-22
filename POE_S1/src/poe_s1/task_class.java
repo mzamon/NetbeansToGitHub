@@ -13,6 +13,7 @@ public class task_class {
     public static int TotalHours;
     public static String TaskID;
     public static String TaskDetails;
+    public static String TaskDescription;
     public static boolean checkTaskDescription;
     public static void Welcome(){
         //System.out.println("Welcome to EasyKanban");
@@ -24,6 +25,18 @@ public class task_class {
     
     //This method ensures that the task description is not more than 50 characters.
     public static boolean checkTaskDescription(){
+        checkTaskDescription = false;
+            while (!checkTaskDescription) {
+                TaskDescription = JOptionPane.showInputDialog(null, "Enter task description:");
+                
+                if (TaskDescription.length() > 50) {
+                    JOptionPane.showMessageDialog(null, "Please enter a task description of less than 50 characters.");
+                } else {
+                    //Tasks[i] = TaskDescription;
+                    JOptionPane.showMessageDialog(null, "Task successfully captured");
+                    checkTaskDescription = true;
+                }
+            }    
         return checkTaskDescription;
     }
     
@@ -61,14 +74,42 @@ public class task_class {
             //Error Handling
              try {
                 if (input == null || input.isEmpty()) {
-                    throw new NumberFormatException("Input string is empty");
+                    throw new NumberFormatException("Input is empty");
                 }
             
             //Convert
             iInput = Integer.parseInt(input);
             
             if (iInput == 1){
-                //
+                //Set number tasks
+                int NumberTasks;
+                String numTasks = JOptionPane.showInputDialog(null,"Please enter the number of tasks you ");
+                NumberTasks = Integer.parseInt(numTasks);
+                
+                 // aArray
+                String[] Tasks = new String[NumberTasks];
+                
+                for (int TaskNumber = 0; TaskNumber < NumberTasks; TaskNumber++) {
+                    Tasks[TaskNumber] = JOptionPane.showInputDialog(null, "Enter task " + (TaskNumber + 1) + ":");
+                    
+                //Check TaskDescripiction    
+                checkTaskDescription();    
+                //Dev Details
+                String DeveloperDetails = JOptionPane.showInputDialog(null, "Enter the first and last name of the developer assigned to the task");
+                //Task Duration
+                String TaskDur  = JOptionPane.showInputDialog(null, "Enter the estimated duration of the task in hours");
+                int TaskDuration = Integer.parseInt(TaskDur);
+                
+                
+                }
+                /*try {
+                *    if (NumberTasks == null || input.isEmpty()) {
+                *        throw new NumberFormatException("Input is empty");
+                *    }
+                *}catch  (NumberFormatException e) {
+                *    JOptionPane.showMessageDialog(null, "Invalid input: " + e.getMessage() + "\nPlease select a valid option (1-3).");
+                *}
+                */
             }else if (iInput == 2){
                 //Coming soon
                 JOptionPane.showMessageDialog(null, "Comming Soon");
@@ -78,7 +119,7 @@ public class task_class {
                 System.exit(0);
             }else{
                 //User friendly
-                JOptionPane.showMessageDialog(null, "THE OPTION YOU HAVE SELECTED IS INVALID \n PLEASE SELECT A VALID OPTION (1-3)");
+                JOptionPane.showMessageDialog(null, "THE OPTION YOU HAVE SELECTED IS INVALID '(" + iInput + ")' \n PLEASE SELECT A VALID OPTION (1-3)");
                      
             }
             } catch (NumberFormatException e) { //Error Handling
