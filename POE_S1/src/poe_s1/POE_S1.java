@@ -7,7 +7,7 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * ST10455453
  * @author ndlov
  */
 public class POE_S1 {
@@ -117,7 +117,9 @@ public class POE_S1 {
                     + " please ensure that the password contains at least 8 characters,"
                     + " a capital letter, a number and a special character.");
         }//if
-    
+        
+        
+        //Part 2 
         System.out.print("Enter name: ");
         String sName = scanner.nextLine();
         
@@ -127,7 +129,12 @@ public class POE_S1 {
         System.out.println("Name: " + sName +  "\n"
                             + "Surname: " + sSurname + "\n"
                             + "Username: " + sUsername + "\n"
-                            + "Password: " + sPassword + "\n");
+                            + "Password: " + sPassword + "\n"                                    
+                            + "\n"
+                            + "\n" 
+                            + "REGISTERED" + "\n");
+                            
+                            
 
         // Close
         //scanner.close();
