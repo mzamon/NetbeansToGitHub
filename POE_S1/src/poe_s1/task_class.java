@@ -4,6 +4,8 @@ import javax.swing.JOptionPane;
 
 public class task_class {
     public static int TaskNum;
+    public static int TempHoursArray;
+    public static int TempArrayIndex;
     public static int TotalHours;
     public static String TaskID;
     public static String TaskDetails;
@@ -12,6 +14,11 @@ public class task_class {
     public static String DeveloperDetails;
     public static boolean checkTaskDescription;
     public static String[] Tasks;
+    public static String[] Developer;
+    public static String[] Task_Names;
+    public static String[] Task_ID;
+    public static int[] Task_Duration;
+    public static String[] Task_Status;
 
     public static void Welcome() {
         JOptionPane.showMessageDialog(null, "Welcome to EasyKanban");
@@ -51,6 +58,7 @@ public class task_class {
         
         TaskDetails = TaskStatus + ", " + DeveloperDetails + ", " + TaskNum + ", " + Tasks[TaskNum] + ", " + TaskDescription 
                                 + ", " + TaskID + ", " + TotalHours;
+    
         //Print
         JOptionPane.showMessageDialog(null, TaskDetails);
         return TaskDetails;
@@ -62,6 +70,9 @@ public class task_class {
         String Hours = JOptionPane.showInputDialog(null, "Enter Hours");
         int iHours;
         iHours = Integer.parseInt(Hours);
+        
+        //Hold the number of hours to be populated into the array
+        TempHoursArray  = iHours;
         TotalHours = TotalHours + iHours;
         return TotalHours;
     }
@@ -99,20 +110,30 @@ public class task_class {
 
                         // Dev Details
                         DeveloperDetails = JOptionPane.showInputDialog(null, "Enter the first and last name of the developer assigned to the task");
-
+                        
                         // Task Duration
                         String taskDur = JOptionPane.showInputDialog(null, "Enter the estimated duration of the task in hours");
                         int taskDuration = Integer.parseInt(taskDur);
 
                         // Generate TaskID
                         TaskID = createTaskID(Tasks[TaskNum], TaskNum, DeveloperDetails);
-
+                            
                         //Get Task status
                         TaskStatus = JOptionPane.showInputDialog(null, "Enter a task status:\n"
                                                                             + "To Do\n" 
                                                                             + "Done\n" 
                                                                             + "Doing\n");
+                        //PART 3 STORE TO ARRAYS
+                        Developer[TaskNum] = DeveloperDetails; 
+                        //Task name array already implemented for part 2. therefore array Tasks = array Task_Names
+                        Task_Names[TaskNum] = Tasks[TaskNum];
+                        Task_ID[TaskNum] = TaskID;
+                        Task_Duration[TaskNum] = TempHoursArray;
+                        Task_Status[TaskNum] = TaskStatus;
+                        //Set array index to be used globally
+                        TempArrayIndex = TaskNum;
                         //Print
+                        
                         printTaskDetails();
                     }
                 /*try {
