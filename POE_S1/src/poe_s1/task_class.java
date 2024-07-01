@@ -1,5 +1,6 @@
 package poe_s1;
 
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 public class task_class {
@@ -19,6 +20,7 @@ public class task_class {
     public static String[] Task_ID;
     public static int[] Task_Duration;
     public static String[] Task_Status;
+    public static String[] TasksDetails; 
 
     public static void Welcome() {
         JOptionPane.showMessageDialog(null, "Welcome to EasyKanban");
@@ -58,6 +60,8 @@ public class task_class {
         
         TaskDetails = TaskStatus + ", " + DeveloperDetails + ", " + TaskNum + ", " + Tasks[TaskNum] + ", " + TaskDescription 
                                 + ", " + TaskID + ", " + TotalHours;
+        //store to array
+        TasksDetails[TempArrayIndex] = TaskDetails;
     
         //Print
         JOptionPane.showMessageDialog(null, TaskDetails);
@@ -123,7 +127,7 @@ public class task_class {
                                                                             + "To Do\n" 
                                                                             + "Done\n" 
                                                                             + "Doing\n");
-                        //PART 3 STORE TO ARRAYS
+                        //PART 3 STORE & populate TO ARRAYS
                         Developer[TaskNum] = DeveloperDetails; 
                         //Task name array already implemented for part 2. therefore array Tasks = array Task_Names
                         Task_Names[TaskNum] = Tasks[TaskNum];
@@ -145,7 +149,109 @@ public class task_class {
                 *}
                 */    
                 } else if (iInput == 2) {
-                    JOptionPane.showMessageDialog(null, "Coming Soon");
+                    //JOptionPane.showMessageDialog(null, "Coming Soon");
+                    int iReportInput = 0;
+                    while (iReportInput != 7){
+                        String ReportInput = JOptionPane.showInputDialog(null, "================ \n Select an option to displ \n ================"
+                        + "1) All Tasks\n"                                       
+                        + "2) Done Tasks\n"
+                        + "3) Longest Task\n"
+                        + "4) Search by Task name\n"                                       
+                        + "5) Search by Developer\n"                                       
+                        + "6) Delete Task\n"                                       
+                        + "7) Main Menue\n");
+                        
+                        iReportInput = Integer.parseInt(ReportInput);
+                        
+                        if (iReportInput == 1){
+                            for (int k = 0; k < Tasks.length ; k++) {
+                                //Display all tasks 1 by 1
+                                JOptionPane.showMessageDialog(null, TasksDetails[k]);                              
+                            }
+                            
+                        }else if (iReportInput == 2){
+                            for (int k = 0; k < Tasks.length ; k++) {
+                                //Display all done tasks 1 by 1
+                                if (Task_Status[k].equals("Done")){                                   
+                                    JOptionPane.showMessageDialog(null, "Developer:\n"+ Developer[k] + "\nTask Name:\n" + Task_Names[k] + "\nTask Duration\n" + Task_Duration[k]);
+                                }
+                            }    
+                        }else if (iReportInput == 3){
+                            if (Task_Duration == null || Task_Duration.length == 0) {
+                                JOptionPane.showMessageDialog(null, "No tasks have been entered!\n \n PLEASE ENTER TASKS");
+                                return;
+                            }
+                            //Bubble sort Descending
+                            String TempDeveloperName = null;
+                            int MaximumDuration = Task_Duration[0];
+                            for (int s = 0; s < Task_Duration.length; s++) {
+                                if (Task_Duration[s] > MaximumDuration) {
+                                    MaximumDuration = Task_Duration[s];
+                                    //Developer name to match with the hours 
+                                    TempDeveloperName = Developer[s];
+                                }
+                            }
+
+                            JOptionPane.showMessageDialog(null,"Developer:  " + TempDeveloperName + "Highest task duration is: " + MaximumDuration + " hours.");                        
+                            
+                        }else if (iReportInput == 4){
+                            //search by task name
+                            String sSearch = JOptionPane.showInputDialog(null, "Please enter the name of the task you would like to display");
+                            for (int k = 0; k < Task_Names.length; k++) {
+                                    if (Task_Names[k].equals(sSearch)) {
+                                        JOptionPane.showMessageDialog(null, "Task name:\n"+ Task_Names[k] + "\nDeveloper:\n" + Developer[k] + "\nTask Satus: \n" + Task_Status[k]);
+                                    }                              
+                            }
+                        }else if (iReportInput == 5){
+                            //search by developer
+                            String sSearch = JOptionPane.showInputDialog(null, "Please enter the name of the developer you would like to display");
+                            for (int k = 0; k < Developer.length; k++) {
+                                    if (Developer[k].equals(sSearch)) {
+                                        JOptionPane.showMessageDialog(null, "Task name:\n"+ Task_Names[k] + "\nTask Satus: \n" + Task_Status[k]);
+                                    }
+                            }    
+                            
+                        }else if (iReportInput == 6){
+                            //Search and delete elements
+                            String sSearch = JOptionPane.showInputDialog(null, "Please enter the name of the Task you would like to Delete");
+                            boolean bFlag = false;
+                            // Iterate through Task_Names to find the task
+                            for (int k = 0; k < Task_Names.length; k++) {
+                                if (Task_Names[k].equals(sSearch)) {
+                                    bFlag = true;
+
+                                    // Shift the elements in arrays to delete the task at index k
+                                    if (k < Task_Names.length - 1) {
+                                        System.arraycopy(Task_Names, k + 1, Task_Names, k, Task_Names.length - 1 - k);
+                                        System.arraycopy(Developer, k + 1, Developer, k, Developer.length - 1 - k);
+                                        System.arraycopy(Task_ID, k + 1, Task_ID, k, Task_ID.length - 1 - k);
+                                        System.arraycopy(Task_Duration, k + 1, Task_Duration, k, Task_Duration.length - 1 - k);
+                                        System.arraycopy(Task_Status, k + 1, Task_Status, k, Task_Status.length - 1 - k);
+                                        System.arraycopy(TasksDetails, k + 1, TasksDetails, k, TasksDetails.length - 1 - k);
+                                    }
+                                    //one less element
+                                    Task_Names = Arrays.copyOf(Task_Names, Task_Names.length - 1);
+                                    Developer = Arrays.copyOf(Developer, Developer.length - 1);
+                                    Task_ID = Arrays.copyOf(Task_ID, Task_ID.length - 1);
+                                    Task_Duration = Arrays.copyOf(Task_Duration, Task_Duration.length - 1);
+                                    Task_Status = Arrays.copyOf(Task_Status, Task_Status.length - 1);
+                                    TasksDetails = Arrays.copyOf(TasksDetails, TasksDetails.length - 1);
+                                    // Decrease TempArray
+                                    if (TempArrayIndex >= Task_Names.length) {
+                                        TempArrayIndex--;
+                                    }
+                                    JOptionPane.showMessageDialog(null, "Task '" + sSearch + "' deleted successfully.");
+                                    break; // Exit
+                                }
+                            }
+                            if (!bFlag) {
+                                JOptionPane.showMessageDialog(null, "Task '" + sSearch + "' not found.");
+                            }
+                        }else if (iReportInput == 7){
+                            JOptionPane.showMessageDialog(null, "Retuning to Main Menue...");
+                            break;
+                        }
+                    }
                 } else if (iInput == 3) {
                     JOptionPane.showMessageDialog(null, "Terminating Application");
                     System.exit(0);

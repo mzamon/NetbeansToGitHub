@@ -141,7 +141,7 @@ public class POE_S1 {
         
         
         //LOGIN CLASS
-        Login login = new Login();
+        Login login = new Login(sUsername, sPassword);
         
     
         

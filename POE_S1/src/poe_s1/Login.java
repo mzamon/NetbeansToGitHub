@@ -9,10 +9,15 @@ import java.util.Scanner;
  *
  * @author ndlov
  */
-public class Login { private String sUsername; private String sPassword;
+public class Login {
+    private String sUsername;
+    private String sPassword;
     
     // Constructor to initialize sUsername and sPassword
-    
+    public Login(String sUsername, String sPassword) {
+        this.sUsername = sUsername; 
+        this.sPassword = sPassword;
+    }
 
     public boolean checkUserName(String sUserUsername) {
         // Check if username is more than 5 characters long and contains an underscore
@@ -64,14 +69,14 @@ public class Login { private String sUsername; private String sPassword;
     public void returnLoginStatus(boolean loginStatus) {
         // Display login status
         if (loginStatus) {
-            System.out.println("LOGIN SUCCESS");
+            System.out.println("\n LOGIN SUCCESS");
             
             //PART2! Call Task class upon successfun login
             //S
             task_class Task = new task_class();
             Task.Welcome();
         } else {
-            System.out.println("LOGIN FAILED");
+            System.out.println("\n LOGIN FAILED");
         }
     }
 
@@ -89,7 +94,7 @@ public class Login { private String sUsername; private String sPassword;
             // Attempt to login
              boolean loginStatus = loginUser(sUserUsername, sUserPassword);
             
-        if ((sUserUsername.equals("kyl_1")) && (sUserPassword.equals("Ch&&sec@ke99!"))){
+        if ((sUserUsername.equals(sUsername))& (sUserPassword.equals(sPassword))){
             loginStatus = true;
         }else {
             loginStatus = false;
