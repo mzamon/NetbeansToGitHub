@@ -15,6 +15,9 @@ public class PROGsitin {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        //Start app
+        
+        System.out.println("f");
         
     }
     
